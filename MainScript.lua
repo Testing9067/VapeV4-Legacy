@@ -11,6 +11,10 @@ local function GetURL(scripturl)
 		return game:HttpGet("https://raw.githubusercontent.com/Testing9067/LEgacy/main/"..scripturl, true)
 	end
 end
+local betterisfile = function(file)
+	local suc, res = pcall(function() return readfile(file) end)
+	return suc and res ~= nil
+end
 local cachedassets = {}
 local function getcustomassetfunc(path)
 	if not betterisfile(path) then
