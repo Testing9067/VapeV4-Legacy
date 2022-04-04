@@ -12,16 +12,15 @@ local function GetURL(scripturl)
 	end
 end
 local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end	
-local betterisfile = function(file)
-	local suc, res = pcall(function() return readfile(file) end)
-	return suc and res ~= nil
-end
-local cachedassets = {}
 local function getcustomassetfunc(path)
-	if cachedassets[path] == nil then
-		cachedassets[path] = getasset(path) 
+	if not isfile(path) then
+		local req = syn.request({
+			Url = "https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/"..path:gsub("vape/assets", "assets"),
+			Method = "GET"
+		})
+		writefile(path, req.Body)
 	end
-	return cachedassets[path]
+	return getsynasset(path)
 end
 local GuiLibrary = loadstring(GetURL("GuiLibrary.lua"))()
 shared.GuiLibrary = GuiLibrary
