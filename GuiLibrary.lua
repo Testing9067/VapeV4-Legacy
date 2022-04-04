@@ -90,7 +90,16 @@ end
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
-
+local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end	
+local function getcustomassetfunc(path)
+	if not isfile(path) then
+		local req = syn.request({
+			Url = "https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/"..path:gsub("vape/assets", "assets"),
+			Method = "GET"
+		})
+		writefile(path, req.Body)
+	end
+end
 if not is_sirhurt_closure and syn and syn.protect_gui then
     local gui = Instance.new("ScreenGui")
     gui.Name = randomString()
