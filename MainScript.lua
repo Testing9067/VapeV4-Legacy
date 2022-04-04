@@ -11,39 +11,18 @@ local function GetURL(scripturl)
 		return game:HttpGet("https://raw.githubusercontent.com/Testing9067/LEgacy/main/"..scripturl, true)
 	end
 end
+local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end	
 local betterisfile = function(file)
 	local suc, res = pcall(function() return readfile(file) end)
 	return suc and res ~= nil
 end
 local cachedassets = {}
 local function getcustomassetfunc(path)
-	if not betterisfile(path) then
-		spawn(function()
-			local textlabel = Instance.new("TextLabel")
-			textlabel.Size = UDim2.new(1, 0, 0, 36)
-			textlabel.Text = "Downloading "..path
-			textlabel.BackgroundTransparency = 1
-			textlabel.TextStrokeTransparency = 0
-			textlabel.TextSize = 30
-			textlabel.Font = Enum.Font.SourceSans
-			textlabel.TextColor3 = Color3.new(1, 1, 1)
-			textlabel.Position = UDim2.new(0, 0, 0, -36)
-			textlabel.Parent = api["MainGui"]
-			repeat wait() until betterisfile(path)
-			textlabel:Remove()
-		end)
-		local req = requestfunc({
-			Url = "https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/"..path:gsub("vape/assets", "assets"),
-			Method = "GET"
-		})
-		writefile(path, req.Body)
-	end
 	if cachedassets[path] == nil then
 		cachedassets[path] = getasset(path) 
 	end
 	return cachedassets[path]
 end
-local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end	
 local GuiLibrary = loadstring(GetURL("GuiLibrary.lua"))()
 shared.GuiLibrary = GuiLibrary
 local workspace = game:GetService("Workspace")
