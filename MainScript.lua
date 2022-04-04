@@ -8,7 +8,7 @@ local function GetURL(scripturl)
 	if shared.VapeDeveloper then
 		return readfile("vape/"..scripturl)
 	else
-		return game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/"..scripturl, true)
+		return game:HttpGet("https://raw.githubusercontent.com/Testing9067/LEgacy/main/"..scripturl, true)
 	end
 end
 
@@ -332,7 +332,7 @@ end, function(num)
 end)
 local XrayAdd
 local Xray = GuiLibrary["ObjectsThatCanBeSaved"]["WorldWindow"]["Api"].CreateOptionsButton("Xray", function() 
-	searchAdd = workspace.DescendantAdded:connect(function(v)
+	XrayAdd = workspace.DescendantAdded:connect(function(v)
 		if v:IsA("BasePart") and not v.Parent:FindFirstChild("Humanoid") and not v.Parent.Parent:FindFirstChild("Humanoid") then
 			v.LocalTransparencyModifier = 0.5
 		end
@@ -396,12 +396,12 @@ SelfDestructButton["Bindable"] = false
 
 guicolorslider = Settings.CreateColorSlider("Gui Color", function(val) GuiLibrary["Settings"]["GUIObject"]["Color"] = val GuiLibrary["UpdateUI"]() end)
 GuiLibrary["UpdateUI"] = function()
-	pcall(function()
+	--pcall(function()
 		if not guicolorslider["RainbowValue"] then
 			onething.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1))})
 			onething2.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1))})
 			onetext.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1))})
-			onetext2.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 0.42)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 0.42))})
+		--	onetext2.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 0.42)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 0.42))})
 		end
 		for i,v in pairs(GuiLibrary["ObjectsThatCanBeSaved"]) do
 			if v["Type"] == "Button" and v["Api"]["Enabled"] then
@@ -439,7 +439,7 @@ GuiLibrary["UpdateUI"] = function()
 				v["Object"].Slider.FillSlider.BackgroundColor3 = Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1)
 			end
 		end
-	end)
+--	end)
 end
 
 local playertoggle = Settings.CreateToggle("Players", function() end, function() end)
@@ -448,7 +448,24 @@ local nakedtoggle = Settings.CreateToggle("Ignore naked", function() end, functi
 local teamsbyservertoggle = Settings.CreateToggle("Teams by server", function() end, function() end)
 local teamsbycolortoggle = Settings.CreateToggle("Teams by color", function() end, function() end)
 local middleclickfriendstoggle = Settings.CreateToggle("MiddleClick friends", function() GuiLibrary["FriendsObject"]["MiddleClickFriends"] = true end, function() GuiLibrary["FriendsObject"]["MiddleClickFriends"] = false end)
-local blatanttoggle = Settings.CreateToggle("Blatant mode", function() end, function() end)
+local blatanttoggle = Settings.CreateToggle("Blatant mode", function()
+	GuiLibrary["Settings"]["GUIObject"]["BlatantMode"] = true
+	for i,v in pairs(GuiLibrary["ObjectsThatCanBeSaved"]) do
+		if v["Type"] == "OptionsButton" and v["Api"]["Blatant"] then
+			v["Object"].TextColor3 = Color3.fromRGB(255, 255, 255)
+		end
+	end
+end, function()
+	GuiLibrary["Settings"]["GUIObject"]["BlatantMode"] = false
+	for i,v in pairs(GuiLibrary["ObjectsThatCanBeSaved"]) do
+		if v["Type"] == "OptionsButton" and v["Api"]["Blatant"] then
+			if v["Api"]["Enabled"] then
+				v["Api"]["ToggleButton"](false, true)
+			end
+			v["Object"].TextColor3 = Color3.fromRGB(128, 128, 128)
+		end
+	end
+end)
 
 if isfolder("vape") == false then
 	makefolder("vape")
