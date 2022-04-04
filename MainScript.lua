@@ -11,23 +11,51 @@ local function GetURL(scripturl)
 		return game:HttpGet("https://raw.githubusercontent.com/Testing9067/LEgacy/main/"..scripturl, true)
 	end
 end
-
+local cachedassets = {}
+local function getcustomassetfunc(path)
+	if not betterisfile(path) then
+		spawn(function()
+			local textlabel = Instance.new("TextLabel")
+			textlabel.Size = UDim2.new(1, 0, 0, 36)
+			textlabel.Text = "Downloading "..path
+			textlabel.BackgroundTransparency = 1
+			textlabel.TextStrokeTransparency = 0
+			textlabel.TextSize = 30
+			textlabel.Font = Enum.Font.SourceSans
+			textlabel.TextColor3 = Color3.new(1, 1, 1)
+			textlabel.Position = UDim2.new(0, 0, 0, -36)
+			textlabel.Parent = api["MainGui"]
+			repeat wait() until betterisfile(path)
+			textlabel:Remove()
+		end)
+		local req = requestfunc({
+			Url = "https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/"..path:gsub("vape/assets", "assets"),
+			Method = "GET"
+		})
+		writefile(path, req.Body)
+	end
+	if cachedassets[path] == nil then
+		cachedassets[path] = getasset(path) 
+	end
+	return cachedassets[path]
+end
+local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end	
 local GuiLibrary = loadstring(GetURL("GuiLibrary.lua"))()
 shared.GuiLibrary = GuiLibrary
 local workspace = game:GetService("Workspace")
 local cam = workspace.CurrentCamera
 local selfdestruct = false
-local GUI = GuiLibrary.CreateWindow("GUI", "🖥", UDim2.new(0, 6, 0, 6), true)
-local Combat = GuiLibrary.CreateWindow("Combat", "⚔", UDim2.new(0, 177, 0, 6), false)
-local Blatant = GuiLibrary.CreateWindow("Blatant", "⚠", UDim2.new(0, 177, 0, 6), false)
-local Render = GuiLibrary.CreateWindow("Render", "👁", UDim2.new(0, 177, 0, 6), false)
-local Utility = GuiLibrary.CreateWindow("Utility", "🛠", UDim2.new(0, 177, 0, 6), false)
-local World = GuiLibrary.CreateWindow("World", "🌎", UDim2.new(0, 177, 0, 6), false)
-local Other = GuiLibrary.CreateWindow("Other", "❔", UDim2.new(0, 177, 0, 6), false)
-local Settings = GuiLibrary.CreateWindow("Settings", "⚙", UDim2.new(0, 177, 0, 6), false)
-local Friends = GuiLibrary.CreateWindow("Friends", "👨‍👦", UDim2.new(0, 177, 0, 6), false)
+local GUI = GuiLibrary.CreateWindow("GUI", getcustomassetfunc("vape/assets/VapeLogo1.png"), UDim2.new(0, 6, 0, 6), true)
+local Combat = GuiLibrary.CreateWindow("Combat", getcustomassetfunc("vape/assets/CombatIcon.png"), UDim2.new(0, 177, 0, 6), false)
+local Blatant = GuiLibrary.CreateWindow("Blatant", getcustomassetfunc("vape/assets/BlatantIcon.png"), UDim2.new(0, 177, 0, 6), false)
+local Render = GuiLibrary.CreateWindow("Render", getcustomassetfunc("vape/assets/RenderIcon.png"), UDim2.new(0, 177, 0, 6), false)
+local Utility = GuiLibrary.CreateWindow("Utility", getcustomassetfunc("vape/assets/UtilityIcon.png"), UDim2.new(0, 177, 0, 6), false)
+local World = GuiLibrary.CreateWindow("World", getcustomassetfunc("vape/assets/WorldIcon.png"), UDim2.new(0, 177, 0, 6), false)
+local Other = GuiLibrary.CreateWindow("Other", "??", UDim2.new(0, 177, 0, 6), false)
+local Settings = GuiLibrary.CreateWindow("Settings", getcustomassetfunc("vape/assets/SettingsWheel1.png"), UDim2.new(0, 177, 0, 6), false)
+local Friends = GuiLibrary.CreateWindow("Friends", getcustomassetfunc("vape/assets/FriendsIcon.png"), UDim2.new(0, 177, 0, 6), false)
 local Search = GuiLibrary.CreateWindow("Search", "🔍", UDim2.new(0, 177, 0, 6), false)
-local TextGui = GuiLibrary.CreateCustomWindow("Text GUI", "📄", UDim2.new(0, 177, 0, 6), false)
+local TextGui = GuiLibrary.CreateCustomWindow("Text GUI", getcustomassetfunc("vape/assets/SearchBarIcon.png"), UDim2.new(0, 177, 0, 6), false)
 
 local rainbowval = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 1)), ColorSequenceKeypoint.new(1, Color3.fromHSV(0, 0, 1))})
 local rainbowval2 = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0.42)), ColorSequenceKeypoint.new(1, Color3.fromHSV(0, 0, 0.42))})
