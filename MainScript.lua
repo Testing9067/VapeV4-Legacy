@@ -20,7 +20,6 @@ local function getcustomassetfunc(path)
 		})
 		writefile(path, req.Body)
 	end
-	return getsynasset(path)
 end
 local GuiLibrary = loadstring(GetURL("GuiLibrary.lua"))()
 shared.GuiLibrary = GuiLibrary
