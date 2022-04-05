@@ -629,7 +629,7 @@ local function getcustomassetfunc(path)
 	return cachedassets[path]
 end
 
-api["CreateWindow"] = function(name, icon, position, visible)
+api["CreateWindow"] = function(name, pcev, position, visible)
 	local windowapi = {}
 	local windowtitle = Instance.new("TextButton")
 	windowtitle.AutoButtonColor = false
@@ -648,7 +648,7 @@ api["CreateWindow"] = function(name, icon, position, visible)
 	local iconlabel = Instance.new("ImageLabel")
 	iconlabel.Active = false
 	iconlabel.Size = UDim2.new(0, 36, 0, 39)
-	iconlabel.Image = getcustomassetfunc(icon)
+	iconlabel.Image = getcustomassetfunc(pcev)
 	iconlabel.Name = "IconLabel"
 	iconlabel.BackgroundTransparency = 1
 	iconlabel.TextColor3 = Color3.new(1, 1, 1)
