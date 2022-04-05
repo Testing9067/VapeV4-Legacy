@@ -11,32 +11,23 @@ local function GetURL(scripturl)
 		return game:HttpGet("https://raw.githubusercontent.com/Testing9067/VapeV4-Legacy/main/"..scripturl, true)
 	end
 end
-local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end	
-local function getcustomassetfunc(path)
-	if not isfile(path) then
-		local req = syn.request({
-			Url = "https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/"..path:gsub("vape/assets", "assets"),
-			Method = "GET"
-		})
-		writefile(path, req.Body)
-	end
-end
+
 local GuiLibrary = loadstring(GetURL("GuiLibrary.lua"))()
 shared.GuiLibrary = GuiLibrary
 local workspace = game:GetService("Workspace")
 local cam = workspace.CurrentCamera
 local selfdestruct = false
-local GUI = GuiLibrary.CreateWindow("GUI", "vape/assets/VapeLogo1.png", UDim2.new(0, 6, 0, 6), true)
-local Combat = GuiLibrary.CreateWindow("Combat", "vape/assets/CombatIcon.png", UDim2.new(0, 177, 0, 6), false)
-local Blatant = GuiLibrary.CreateWindow("Blatant", "vape/assets/BlatantIcon.png", UDim2.new(0, 177, 0, 6), false)
-local Render = GuiLibrary.CreateWindow("Render", "vape/assets/RenderIcon.png", UDim2.new(0, 177, 0, 6), false)
-local Utility = GuiLibrary.CreateWindow("Utility", "vape/assets/UtilityIcon.png", UDim2.new(0, 177, 0, 6), false)
-local World = GuiLibrary.CreateWindow("World", "vape/assets/WorldIcon.png", UDim2.new(0, 177, 0, 6), false)
-local Other = GuiLibrary.CreateWindow("Other", "??", UDim2.new(0, 177, 0, 6), false)
-local Settings = GuiLibrary.CreateWindow("Settings", "vape/assets/SettingsWheel1.png", UDim2.new(0, 177, 0, 6), false)
-local Friends = GuiLibrary.CreateWindow("Friends", "vape/assets/FriendsIcon.png", UDim2.new(0, 177, 0, 6), false)
+local GUI = GuiLibrary.CreateWindow("GUI", "🖥", UDim2.new(0, 6, 0, 6), true)
+local Combat = GuiLibrary.CreateWindow("Combat", "⚔", UDim2.new(0, 177, 0, 6), false)
+local Blatant = GuiLibrary.CreateWindow("Blatant", "⚠", UDim2.new(0, 177, 0, 6), false)
+local Render = GuiLibrary.CreateWindow("Render", "👁", UDim2.new(0, 177, 0, 6), false)
+local Utility = GuiLibrary.CreateWindow("Utility", "🛠", UDim2.new(0, 177, 0, 6), false)
+local World = GuiLibrary.CreateWindow("World", "🌎", UDim2.new(0, 177, 0, 6), false)
+local Other = GuiLibrary.CreateWindow("Other", "❔", UDim2.new(0, 177, 0, 6), false)
+local Settings = GuiLibrary.CreateWindow("Settings", "⚙", UDim2.new(0, 177, 0, 6), false)
+local Friends = GuiLibrary.CreateWindow("Friends", "👨‍👦", UDim2.new(0, 177, 0, 6), false)
 local Search = GuiLibrary.CreateWindow("Search", "🔍", UDim2.new(0, 177, 0, 6), false)
-local TextGui = GuiLibrary.CreateCustomWindow("Text GUI", "vape/assets/SearchBarIcon.png", UDim2.new(0, 177, 0, 6), false)
+local TextGui = GuiLibrary.CreateCustomWindow("Text GUI", "📄", UDim2.new(0, 177, 0, 6), false)
 
 local rainbowval = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 1)), ColorSequenceKeypoint.new(1, Color3.fromHSV(0, 0, 1))})
 local rainbowval2 = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(0, 0, 0.42)), ColorSequenceKeypoint.new(1, Color3.fromHSV(0, 0, 0.42))})
@@ -341,7 +332,7 @@ end, function(num)
 end)
 local XrayAdd
 local Xray = GuiLibrary["ObjectsThatCanBeSaved"]["WorldWindow"]["Api"].CreateOptionsButton("Xray", function() 
-	XrayAdd = workspace.DescendantAdded:connect(function(v)
+	searchAdd = workspace.DescendantAdded:connect(function(v)
 		if v:IsA("BasePart") and not v.Parent:FindFirstChild("Humanoid") and not v.Parent.Parent:FindFirstChild("Humanoid") then
 			v.LocalTransparencyModifier = 0.5
 		end
@@ -405,12 +396,12 @@ SelfDestructButton["Bindable"] = false
 
 guicolorslider = Settings.CreateColorSlider("Gui Color", function(val) GuiLibrary["Settings"]["GUIObject"]["Color"] = val GuiLibrary["UpdateUI"]() end)
 GuiLibrary["UpdateUI"] = function()
-	--pcall(function()
+	pcall(function()
 		if not guicolorslider["RainbowValue"] then
 			onething.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1))})
 			onething2.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1))})
 			onetext.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1))})
-		--	onetext2.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 0.42)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 0.42))})
+			onetext2.Gradient.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 0.42)), ColorSequenceKeypoint.new(1, Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 0.42))})
 		end
 		for i,v in pairs(GuiLibrary["ObjectsThatCanBeSaved"]) do
 			if v["Type"] == "Button" and v["Api"]["Enabled"] then
@@ -448,7 +439,7 @@ GuiLibrary["UpdateUI"] = function()
 				v["Object"].Slider.FillSlider.BackgroundColor3 = Color3.fromHSV(GuiLibrary["Settings"]["GUIObject"]["Color"], 1, 1)
 			end
 		end
---	end)
+	end)
 end
 
 local playertoggle = Settings.CreateToggle("Players", function() end, function() end)
@@ -457,24 +448,7 @@ local nakedtoggle = Settings.CreateToggle("Ignore naked", function() end, functi
 local teamsbyservertoggle = Settings.CreateToggle("Teams by server", function() end, function() end)
 local teamsbycolortoggle = Settings.CreateToggle("Teams by color", function() end, function() end)
 local middleclickfriendstoggle = Settings.CreateToggle("MiddleClick friends", function() GuiLibrary["FriendsObject"]["MiddleClickFriends"] = true end, function() GuiLibrary["FriendsObject"]["MiddleClickFriends"] = false end)
-local blatanttoggle = Settings.CreateToggle("Blatant mode", function()
-	GuiLibrary["Settings"]["GUIObject"]["BlatantMode"] = true
-	for i,v in pairs(GuiLibrary["ObjectsThatCanBeSaved"]) do
-		if v["Type"] == "OptionsButton" and v["Api"]["Blatant"] then
-			v["Object"].TextColor3 = Color3.fromRGB(255, 255, 255)
-		end
-	end
-end, function()
-	GuiLibrary["Settings"]["GUIObject"]["BlatantMode"] = false
-	for i,v in pairs(GuiLibrary["ObjectsThatCanBeSaved"]) do
-		if v["Type"] == "OptionsButton" and v["Api"]["Blatant"] then
-			if v["Api"]["Enabled"] then
-				v["Api"]["ToggleButton"](false, true)
-			end
-			v["Object"].TextColor3 = Color3.fromRGB(128, 128, 128)
-		end
-	end
-end)
+local blatanttoggle = Settings.CreateToggle("Blatant mode", function() end, function() end)
 
 if isfolder("vape") == false then
 	makefolder("vape")
@@ -486,10 +460,10 @@ if isfolder("vape/Profiles") == false then
 	makefolder("vape/Profiles")
 end
 
-if pcall(function() readfile("vape/CustomModules/"..game.PlaceId..".VapeModule") end) then
-	loadstring(readfile("vape/CustomModules/"..game.PlaceId..".VapeModule"))()
+if pcall(function() readfile("vape/CustomModules/"..game.PlaceId..".vape") end) then
+	loadstring(readfile("vape/CustomModules/"..game.PlaceId..".vape"))()
 else
-	loadstring(GetURL("AnyGame.VapeModule"))()
+	loadstring(GetURL("AnyGame.vape"))()
 end
 
 GuiLibrary["LoadSettings"]()
