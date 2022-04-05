@@ -572,13 +572,6 @@ api["CreateCustomWindow"] = function(name, icon, position, visible)
 	
 	return windowapi
 end
-local cachedassets = {}
-local function getcustomassetfunc(path)
-	if cachedassets[path] == nil then
-		cachedassets[path] = getasset(path) 
-	end
-	return cachedassets[path]
-end  
 api["CreateWindow"] = function(name, icon, position, visible)
 	local windowapi = {}
 	local windowtitle = Instance.new("TextButton")
