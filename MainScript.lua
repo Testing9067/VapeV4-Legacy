@@ -463,7 +463,7 @@ end
 if pcall(function() readfile("vape/CustomModules/"..game.PlaceId..".vape") end) then
 	loadstring(readfile("vape/CustomModules/"..game.PlaceId..".vape"))()
 else
-	loadstring(GetURL("AnyGame.Vape"))()
+	loadstring(GetURL("AnyGame.vape"))()
 end
 
 GuiLibrary["LoadSettings"]()
