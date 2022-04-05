@@ -8,6 +8,7 @@ local function GetURL(scripturl)
 	if shared.VapeDeveloper then
 		return readfile("vape/"..scripturl)
 	else
+<<<<<<< HEAD
 		return game:HttpGet("https://raw.githubusercontent.com/Testing9067/VapeV4-Legacy/main/"..scripturl, true)
 	end
 end
@@ -19,6 +20,9 @@ local function getcustomassetfunc(path)
 			Method = "GET"
 		})
 		writefile(path, req.Body)
+=======
+		return game:HttpGet("https://raw.githubusercontent.com/Testing9067/LEgacy/main/"..scripturl, true)
+>>>>>>> 0188a3e15f6f91fa42e7d984e426edc49f1b9e21
 	end
 end
 local GuiLibrary = loadstring(GetURL("GuiLibrary.lua"))()
