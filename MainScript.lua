@@ -8,7 +8,7 @@ local function GetURL(scripturl)
 	if shared.VapeDeveloper then
 		return readfile("vape/"..scripturl)
 	else
-		return game:HttpGet("https://raw.githubusercontent.com/Testing9067/LEgacy/main/"..scripturl, true)
+		return game:HttpGet("https://raw.githubusercontent.com/Testing9067/VapeV4-Legacy/main/"..scripturl, true)
 	end
 end
 local getasset = getsynasset or getcustomasset or function(location) return "rbxasset://"..location end	
