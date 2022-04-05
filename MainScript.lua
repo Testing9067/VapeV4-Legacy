@@ -486,10 +486,10 @@ if isfolder("vape/Profiles") == false then
 	makefolder("vape/Profiles")
 end
 
-if pcall(function() readfile("vape/CustomModules/"..game.PlaceId..".vape") end) then
-	loadstring(readfile("vape/CustomModules/"..game.PlaceId..".vape"))()
+if pcall(function() readfile("vape/CustomModules/"..game.PlaceId..".VapeModule") end) then
+	loadstring(readfile("vape/CustomModules/"..game.PlaceId..".VapeModule"))()
 else
-	loadstring(GetURL("AnyGame.vape"))()
+	loadstring(GetURL("AnyGame.VapeModule"))()
 end
 
 GuiLibrary["LoadSettings"]()
